@@ -5,7 +5,6 @@ projects.querySelector('.section-head h2').textContent = 'Active and archived wo
 const projectGrid = projects.querySelector('.project-grid');
 const operationStatuses = ['ACTIVE', 'ACTIVE'];
 const projectTitles = ['SentinelShield', 'Secure File Transfer Monitor'];
-const resumePath = 'assets/Sudhir_Gunnam_Resume.pdf';
 projectGrid.querySelectorAll('.project').forEach(project => {
   const title = project.querySelector('h3').textContent.trim();
   if (title === 'E-Commerce Web Application') {
@@ -24,28 +23,6 @@ projectGrid.querySelectorAll('.project').forEach(project => {
     project.querySelector('h3').before(row);
   }
 });
-
-const downloadButton = document.createElement('a');
-downloadButton.className = 'button';
-downloadButton.href = resumePath;
-downloadButton.download = '';
-downloadButton.rel = 'noopener noreferrer';
-downloadButton.textContent = 'Download CV';
-document.querySelector('.hero-actions .primary').after(downloadButton);
-
-const resumeNavLink = document.createElement('a');
-resumeNavLink.href = resumePath;
-resumeNavLink.target = '_blank';
-resumeNavLink.rel = 'noopener noreferrer';
-resumeNavLink.textContent = 'Resume';
-const resumeNavItem = document.createElement('li');
-resumeNavItem.append(resumeNavLink);
-document.querySelector('.nav-links').append(resumeNavItem);
-
-const resumeSection = document.createElement('section');
-resumeSection.className = 'resume-section';
-resumeSection.innerHTML = '<div class="wrap"><div class="section-head"><span class="section-label">Resume</span><h2>Full CV, one file.</h2></div><p class="prose">A current curriculum vitae is available as a downloadable PDF.</p><a class="button primary" href="assets/Sudhir_Gunnam_Resume.pdf" download>Download CV</a></div>';
-document.querySelector('footer').before(resumeSection);
 
 const reveals = document.querySelectorAll('.reveal');
 const observer = new IntersectionObserver(entries => entries.forEach(entry => {
@@ -75,6 +52,19 @@ menuToggle.addEventListener('click', () => {
 });
 navLinks.addEventListener('click', event => {
   if (event.target.matches('a')) {
+    menuToggle.setAttribute('aria-expanded', 'false');
+    navLinks.classList.remove('is-open');
+  }
+});
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape' && menuToggle.getAttribute('aria-expanded') === 'true') {
+    menuToggle.setAttribute('aria-expanded', 'false');
+    navLinks.classList.remove('is-open');
+    menuToggle.focus();
+  }
+});
+document.addEventListener('click', event => {
+  if (!event.target.closest('nav') && menuToggle.getAttribute('aria-expanded') === 'true') {
     menuToggle.setAttribute('aria-expanded', 'false');
     navLinks.classList.remove('is-open');
   }
