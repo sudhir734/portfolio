@@ -24,24 +24,6 @@ projectGrid.querySelectorAll('.project').forEach(project => {
   }
 });
 
-const downloadButton = document.createElement('a');
-downloadButton.className = 'button';
-downloadButton.href = '/assets/resume.pdf';
-downloadButton.download = '';
-downloadButton.rel = 'noopener noreferrer';
-downloadButton.textContent = 'Download CV';
-document.querySelector('.hero-actions .primary').after(downloadButton);
-const resumeNavLink = document.querySelector('.nav-links a[href="#resume"]');
-resumeNavLink.href = '/assets/resume.pdf';
-resumeNavLink.target = '_blank';
-resumeNavLink.rel = 'noopener noreferrer';
-
-const resumeSection = document.createElement('section');
-resumeSection.id = 'resume';
-resumeSection.className = 'resume-section';
-resumeSection.innerHTML = '<div class="wrap"><div class="section-head"><span class="section-label">Resume</span><h2>Full CV, one file.</h2></div><p class="prose">A current curriculum vitae is available as a downloadable PDF.</p><a class="button primary" href="/assets/resume.pdf" download>Download CV</a><p class="operation-number">Last updated: [DATE]</p></div>';
-document.querySelector('footer').before(resumeSection);
-
 const reveals = document.querySelectorAll('.reveal');
 const observer = new IntersectionObserver(entries => entries.forEach(entry => {
   if (entry.isIntersecting) {
