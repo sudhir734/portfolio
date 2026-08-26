@@ -1,0 +1,17 @@
+{
+  "name": "Sudhir Gunnam — Offensive Security Portfolio",
+  "short_name": "Sudhir Portfolio",
+  "description": "Offensive Security Specialist & Penetration Tester Portfolio",
+  "start_url": "/portfolio/",
+  "display": "standalone",
+  "background_color": "#fafafa",
+  "theme_color": "#080808",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
