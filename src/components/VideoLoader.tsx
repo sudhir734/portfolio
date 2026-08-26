@@ -203,7 +203,7 @@ export default function VideoLoader({ onComplete }: VideoLoaderProps) {
               {/* Full Video Stream */}
               <video
                 ref={videoRef}
-                src="/loader.mp4"
+                src="./loader.mp4"
                 autoPlay
                 muted
                 playsInline
