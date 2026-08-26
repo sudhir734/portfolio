@@ -13,15 +13,15 @@ export default function VideoLoader({ onComplete }: VideoLoaderProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const animFrameRef = useRef<number | null>(null);
 
-  // Smooth 3D Mouse Parallax Tracking
+  // Smooth 3D Mouse Parallax with Spring Physics
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  const springConfig = { damping: 25, stiffness: 220, mass: 0.2 };
+  const springConfig = { damping: 24, stiffness: 220, mass: 0.2 };
   const smoothX = useSpring(mouseX, springConfig);
   const smoothY = useSpring(mouseY, springConfig);
 
-  const rotateX = useTransform(smoothY, [-300, 300], [18, 2]);
-  const rotateY = useTransform(smoothX, [-300, 300], [-20, 8]);
+  const parallaxX = useTransform(smoothX, [-300, 300], [-18, 8]);
+  const parallaxY = useTransform(smoothY, [-300, 300], [16, -4]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -66,7 +66,7 @@ export default function VideoLoader({ onComplete }: VideoLoaderProps) {
       video.addEventListener('canplay', setPlayback);
       video.addEventListener('play', setPlayback);
 
-      // Silky Smooth Progress Loop via requestAnimationFrame
+      // Silky Smooth Progress Loop
       const updateLoop = () => {
         if (video && video.duration && !isNaN(video.duration) && video.duration > 0) {
           const current = video.currentTime;
@@ -91,7 +91,6 @@ export default function VideoLoader({ onComplete }: VideoLoaderProps) {
         setPlayback();
         animFrameRef.current = requestAnimationFrame(updateLoop);
       }).catch(() => {
-        // Autoplay policy fallback
         video.muted = true;
         video.play().then(() => {
           setPlayback();
@@ -133,8 +132,8 @@ export default function VideoLoader({ onComplete }: VideoLoaderProps) {
           initial={{ opacity: 1 }}
           exit={{
             opacity: 0,
-            scale: 1.04,
-            filter: 'blur(6px)',
+            scale: 1.05,
+            filter: 'blur(8px)',
             transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1] },
           }}
           className="fixed inset-0 z-[99999] bg-[#fafafa] flex flex-col justify-between items-center p-4 sm:p-6 md:p-8 overflow-hidden select-none"
@@ -149,8 +148,22 @@ export default function VideoLoader({ onComplete }: VideoLoaderProps) {
             }}
           />
 
+          {/* Ambient Spotlight Glow */}
+          <div
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full pointer-events-none opacity-35"
+            style={{
+              background: 'radial-gradient(circle, rgba(0,0,0,0.06) 0%, rgba(22,163,74,0.04) 40%, transparent 70%)',
+              filter: 'blur(50px)',
+            }}
+          />
+
           {/* Top Brand Header Bar */}
-          <div className="w-full max-w-[1240px] flex items-center justify-between z-20">
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: 'easeOut' }}
+            className="w-full max-w-[1240px] flex items-center justify-between z-20"
+          >
             <div className="flex items-center gap-3">
               <div className="w-4 h-4 bg-[#080808] rotate-45 flex items-center justify-center shrink-0 shadow-sm">
                 <div className="w-1.5 h-1.5 bg-white" />
@@ -174,33 +187,39 @@ export default function VideoLoader({ onComplete }: VideoLoaderProps) {
                 <div className="w-1.5 h-1.5 bg-[#080808]" />
               </div>
             </div>
-          </div>
+          </motion.div>
 
-          {/* Center: Full-Fidelity 3D Video Card */}
+          {/* Center: Dynamic Framer Motion 3D Video Frame */}
           <div className="relative w-full max-w-[840px] aspect-video perspective-[1400px] flex items-center justify-center my-auto px-2">
             <motion.div
               style={{
-                rotateX,
-                rotateY,
+                x: parallaxX,
+                y: parallaxY,
                 transformStyle: 'preserve-3d',
               }}
               initial={{
-                scale: 0.86,
+                rotateX: 32,
+                rotateY: -24,
+                rotateZ: -5,
+                scale: 0.78,
                 opacity: 0,
-                y: 25,
+                y: 35,
               }}
               animate={{
-                scale: 1,
+                rotateX: progress > 85 ? 0 : progress > 45 ? 10 : 26,
+                rotateY: progress > 85 ? 0 : progress > 45 ? -8 : -20,
+                rotateZ: progress > 85 ? 0 : progress > 45 ? -1 : -4,
+                scale: progress > 85 ? 1.02 : progress > 45 ? 0.98 : 0.88,
                 opacity: 1,
                 y: 0,
               }}
               transition={{
-                duration: 0.5,
+                duration: 0.6,
                 ease: [0.16, 1, 0.3, 1],
               }}
-              className="relative w-full h-full rounded-[20px] sm:rounded-[26px] md:rounded-[28px] overflow-hidden border-2 border-[#111111] shadow-[0_25px_65px_rgba(0,0,0,0.18)] bg-[#080808]"
+              className="relative w-full h-full rounded-[20px] sm:rounded-[26px] md:rounded-[28px] overflow-hidden border-2 border-[#111111] shadow-[0_28px_70px_rgba(0,0,0,0.18),0_0_40px_rgba(22,163,74,0.06)] bg-[#080808]"
             >
-              {/* Full Video Stream */}
+              {/* Video Element */}
               <video
                 ref={videoRef}
                 src="./loader.mp4"
@@ -213,18 +232,18 @@ export default function VideoLoader({ onComplete }: VideoLoaderProps) {
                 className="w-full h-full object-cover"
               />
 
-              {/* Holographic Light Flare Sweep */}
+              {/* Framer Motion Iridescent Flare Sweep */}
               <motion.div
                 animate={{
                   x: ['-100%', '200%'],
                 }}
                 transition={{
-                  duration: 1.8,
+                  duration: 2.0,
                   repeat: Infinity,
                   ease: 'easeInOut',
-                  repeatDelay: 0.6,
+                  repeatDelay: 0.5,
                 }}
-                className="absolute inset-0 pointer-events-none bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-[-25deg] blur-[10px]"
+                className="absolute inset-0 pointer-events-none bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-[-25deg] blur-[12px]"
               />
 
               {/* Corner Cyber Brackets */}
@@ -251,7 +270,12 @@ export default function VideoLoader({ onComplete }: VideoLoaderProps) {
           </div>
 
           {/* Bottom Telemetry & Progress */}
-          <div className="relative z-10 text-center space-y-2.5 sm:space-y-3 max-w-[360px] w-full px-4 mb-2 sm:mb-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.1 }}
+            className="relative z-10 text-center space-y-2.5 sm:space-y-3 max-w-[360px] w-full px-4 mb-2 sm:mb-4"
+          >
             {/* Real-Time Status Text */}
             <div className="flex items-center justify-between text-[11px] font-mono font-bold tracking-[0.16em] uppercase text-[#080808]">
               <span className="flex items-center gap-2 truncate max-w-[260px]">
@@ -279,7 +303,7 @@ export default function VideoLoader({ onComplete }: VideoLoaderProps) {
                 <span className="text-[9px]">◆</span>
               </button>
             </div>
-          </div>
+          </motion.div>
         </motion.div>
       )}
     </AnimatePresence>
