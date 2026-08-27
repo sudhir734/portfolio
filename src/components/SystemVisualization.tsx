@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import NetworkConnections from './NetworkConnections';
 import { Search, Crosshair, Layers, Shield } from 'lucide-react';
@@ -130,8 +129,6 @@ export default function SystemVisualization({
   selectedDomain,
   onSelectDomain,
 }: SystemVisualizationProps) {
-  const [isHovered, setIsHovered] = useState(false);
-
   // Mouse Parallax
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -163,7 +160,6 @@ export default function SystemVisualization({
   const handleMouseLeave = () => {
     mouseX.set(0);
     mouseY.set(0);
-    setIsHovered(false);
   };
 
   const toggleDomain = (dom: string) => {
