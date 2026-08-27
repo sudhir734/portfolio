@@ -11,7 +11,6 @@ import {
   Lock,
   Search,
   BookOpen,
-  ArrowRight,
   RefreshCw,
 } from 'lucide-react';
 import type { Operation } from '../data/operations';
