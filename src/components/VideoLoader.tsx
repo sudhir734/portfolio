@@ -40,7 +40,7 @@ export default function VideoLoader({ onComplete }: VideoLoaderProps) {
     setIsVisible(false);
     setTimeout(() => {
       onComplete();
-    }, 450);
+    }, 350);
   };
 
   useEffect(() => {
@@ -132,36 +132,26 @@ export default function VideoLoader({ onComplete }: VideoLoaderProps) {
           initial={{ opacity: 1 }}
           exit={{
             opacity: 0,
-            scale: 1.05,
-            filter: 'blur(8px)',
-            transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1] },
+            scale: 1.02,
+            transition: { duration: 0.35, ease: [0.16, 1, 0.3, 1] }, // Zero blur on exit
           }}
           className="fixed inset-0 z-[99999] bg-[#fafafa] flex flex-col justify-between items-center p-4 sm:p-6 md:p-8 overflow-hidden select-none"
         >
-          {/* Architectural Background Grid */}
+          {/* Architectural Background Grid matching main site */}
           <div
-            className="absolute inset-0 opacity-[0.04] pointer-events-none"
+            className="absolute inset-0 opacity-[0.035] pointer-events-none"
             style={{
               backgroundImage:
-                'linear-gradient(to right, #000 1.5px, transparent 1.5px), linear-gradient(to bottom, #000 1.5px, transparent 1.5px)',
-              backgroundSize: '72px 72px',
-            }}
-          />
-
-          {/* Ambient Spotlight Glow */}
-          <div
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full pointer-events-none opacity-35"
-            style={{
-              background: 'radial-gradient(circle, rgba(0,0,0,0.06) 0%, rgba(22,163,74,0.04) 40%, transparent 70%)',
-              filter: 'blur(50px)',
+                'linear-gradient(to right, #000 1px, transparent 1px), linear-gradient(to bottom, #000 1px, transparent 1px)',
+              backgroundSize: '80px 80px',
             }}
           />
 
           {/* Top Brand Header Bar */}
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, ease: 'easeOut' }}
+            transition={{ duration: 0.35, ease: 'easeOut' }}
             className="w-full max-w-[1240px] flex items-center justify-between z-20"
           >
             <div className="flex items-center gap-3">
@@ -172,7 +162,7 @@ export default function VideoLoader({ onComplete }: VideoLoaderProps) {
                 SUDHIR GUNNAM
               </span>
               <span className="text-[#cccccc] text-xs">/</span>
-              <span className="text-[11px] font-bold tracking-[0.14em] uppercase text-[#444444] font-mono hidden xs:inline">
+              <span className="text-[11px] font-bold tracking-[0.14em] uppercase text-[#555] font-mono hidden xs:inline">
                 SECURITY INTERFACE
               </span>
             </div>
@@ -201,9 +191,9 @@ export default function VideoLoader({ onComplete }: VideoLoaderProps) {
                 rotateX: 32,
                 rotateY: -24,
                 rotateZ: -5,
-                scale: 0.78,
+                scale: 0.8,
                 opacity: 0,
-                y: 35,
+                y: 30,
               }}
               animate={{
                 rotateX: progress > 85 ? 0 : progress > 45 ? 10 : 26,
@@ -214,10 +204,10 @@ export default function VideoLoader({ onComplete }: VideoLoaderProps) {
                 y: 0,
               }}
               transition={{
-                duration: 0.6,
+                duration: 0.5,
                 ease: [0.16, 1, 0.3, 1],
               }}
-              className="relative w-full h-full rounded-[20px] sm:rounded-[26px] md:rounded-[28px] overflow-hidden border-2 border-[#111111] shadow-[0_28px_70px_rgba(0,0,0,0.18),0_0_40px_rgba(22,163,74,0.06)] bg-[#080808]"
+              className="relative w-full h-full rounded-[18px] sm:rounded-[24px] md:rounded-[28px] overflow-hidden border-2 border-[#111111] shadow-[0_24px_60px_rgba(0,0,0,0.16)] bg-[#080808]"
             >
               {/* Video Element */}
               <video
@@ -232,20 +222,6 @@ export default function VideoLoader({ onComplete }: VideoLoaderProps) {
                 className="w-full h-full object-cover"
               />
 
-              {/* Framer Motion Iridescent Flare Sweep */}
-              <motion.div
-                animate={{
-                  x: ['-100%', '200%'],
-                }}
-                transition={{
-                  duration: 2.0,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                  repeatDelay: 0.5,
-                }}
-                className="absolute inset-0 pointer-events-none bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-[-25deg] blur-[12px]"
-              />
-
               {/* Corner Cyber Brackets */}
               <div className="absolute top-3 left-3 sm:top-4 sm:left-4 w-4 h-4 border-t-2 border-l-2 border-white pointer-events-none" />
               <div className="absolute top-3 right-3 sm:top-4 sm:right-4 w-4 h-4 border-t-2 border-r-2 border-white pointer-events-none" />
@@ -253,7 +229,7 @@ export default function VideoLoader({ onComplete }: VideoLoaderProps) {
               <div className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 w-4 h-4 border-b-2 border-r-2 border-white pointer-events-none" />
 
               {/* Top-Left Clearance Badge */}
-              <div className="absolute top-3 left-8 sm:top-4 sm:left-10 px-3 py-1 rounded-full bg-white/95 backdrop-blur-md border border-black/10 flex items-center gap-2 pointer-events-none shadow-md">
+              <div className="absolute top-3 left-8 sm:top-4 sm:left-10 px-3 py-1 rounded-full bg-white/95 border border-black/10 flex items-center gap-2 pointer-events-none shadow-md">
                 <span className="w-2 h-2 rounded-full bg-[#16a34a] animate-pulse" />
                 <span className="text-[10px] font-black tracking-widest text-[#080808] uppercase">
                   SECURITY CLEARANCE VERIFIED
@@ -261,7 +237,7 @@ export default function VideoLoader({ onComplete }: VideoLoaderProps) {
               </div>
 
               {/* Bottom-Right Live Speed & Telemetry Tag */}
-              <div className="absolute bottom-3 right-8 sm:bottom-4 sm:right-10 px-3 py-1 rounded-full bg-black/80 backdrop-blur-md border border-white/20 hidden sm:flex items-center gap-2 pointer-events-none text-[9px] font-mono font-bold text-[#4ade80]">
+              <div className="absolute bottom-3 right-8 sm:bottom-4 sm:right-10 px-3 py-1 rounded-full bg-black/80 border border-white/20 hidden sm:flex items-center gap-2 pointer-events-none text-[9px] font-mono font-bold text-[#4ade80]">
                 <span>2X SPEED</span>
                 <span className="text-white/60">//</span>
                 <span>{progress}%</span>
@@ -271,9 +247,9 @@ export default function VideoLoader({ onComplete }: VideoLoaderProps) {
 
           {/* Bottom Telemetry & Progress */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.1 }}
+            transition={{ duration: 0.35, delay: 0.1 }}
             className="relative z-10 text-center space-y-2.5 sm:space-y-3 max-w-[360px] w-full px-4 mb-2 sm:mb-4"
           >
             {/* Real-Time Status Text */}
@@ -294,10 +270,10 @@ export default function VideoLoader({ onComplete }: VideoLoaderProps) {
             </div>
 
             {/* Skip Button */}
-            <div className="pt-1.5">
+            <div className="pt-1">
               <button
                 onClick={handleFinish}
-                className="inline-flex items-center gap-2 bg-[#080808] text-white text-[11px] font-black tracking-[0.14em] uppercase px-7 py-2 rounded-full shadow-[0_6px_20px_rgba(0,0,0,0.18)] hover:bg-[#1f1f1f] hover:scale-105 active:scale-95 transition-all cursor-pointer"
+                className="inline-flex items-center gap-2 bg-[#080808] text-white text-[11px] font-black tracking-[0.14em] uppercase px-7 py-2 rounded-full shadow-[0_4px_16px_rgba(0,0,0,0.18)] hover:bg-[#1f1f1f] hover:scale-105 active:scale-95 transition-all cursor-pointer"
               >
                 <span>SKIP [ESC]</span>
                 <span className="text-[9px]">◆</span>

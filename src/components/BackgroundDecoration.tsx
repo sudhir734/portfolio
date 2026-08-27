@@ -1,6 +1,6 @@
 export default function BackgroundDecoration() {
   return (
-    <div className="fixed inset-0 pointer-events-none overflow-hidden z-0 select-none">
+    <div className="fixed inset-0 pointer-events-none overflow-hidden z-0 select-none bg-[#fafafa]">
       {/* Top-Right Faceted 3D Black Geometric Monolith */}
       <div className="absolute -top-12 -right-16 w-[280px] h-[340px] md:w-[380px] md:h-[440px] opacity-95">
         <svg viewBox="0 0 380 440" className="w-full h-full" fill="none">
@@ -30,9 +30,9 @@ export default function BackgroundDecoration() {
         </svg>
       </div>
 
-      {/* Architectural background grid / guidelines (Fixed) */}
+      {/* Crisp Architectural background grid matching VideoLoader */}
       <div
-        className="absolute inset-0 opacity-[0.025]"
+        className="absolute inset-0 opacity-[0.035]"
         style={{
           backgroundImage:
             'linear-gradient(to right, #000 1px, transparent 1px), linear-gradient(to bottom, #000 1px, transparent 1px)',
