@@ -172,7 +172,6 @@ export default function SystemVisualization({
     <div className="w-full max-w-[520px] h-[380px] sm:h-[460px] md:h-[520px] flex items-center justify-center relative overflow-visible">
       <motion.div
         onMouseMove={handleMouseMove}
-        onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={handleMouseLeave}
         style={{
           rotateX,
